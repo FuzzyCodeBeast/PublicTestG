@@ -1,0 +1,30 @@
+<!-- main html page -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>main</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <!-- <script type="text/javascript" src="main.js"></script> -->
+  <script>
+    const changeHeader = () => {
+      // change header background color to light blue after 3 seconds
+      const header = document.querySelector('.header');
+      setTimeout(() => {
+        header.style.backgroundColor = 'lightblue';
+      }, 3000);      
+    }
+  </script>
+</head>
+<body onload="changeHeader()">
+  <div class="container">
+    <div class="header">
+      <h1>main</h1>
+    </div>
+    <div class="content">
+      <p>content</p>
+    </div>
+    <div class="footer">
+      <p>footer</p>
+    </div>
+  </div>
+</html>
