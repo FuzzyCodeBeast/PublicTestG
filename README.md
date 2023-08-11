@@ -1,1 +1,1 @@
-Public Test
+This is a simple project to test GitKraken and a public github repo

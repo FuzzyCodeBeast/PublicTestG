@@ -1,30 +1,97 @@
-<!-- main html page -->
 <!DOCTYPE html>
 <html>
-<head>
-  <title>main</title>
-  <link rel="stylesheet" type="text/css" href="main.css">
-  <!-- <script type="text/javascript" src="main.js"></script> -->
-  <script>
-    const changeHeader = () => {
-      // change header background color to light blue after 3 seconds
-      const header = document.querySelector('.header');
-      setTimeout(() => {
-        header.style.backgroundColor = 'lightblue';
-      }, 3000);      
-    }
-  </script>
-</head>
-<body onload="changeHeader()">
-  <div class="container">
-    <div class="header">
-      <h1>main</h1>
+  <head>
+    <title>main</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script>    
+      const changeHeader = () => {
+        const header = document.querySelector('.header');
+        const button = document.querySelector('.reroll-button');
+        setTimeout(() => {
+          header.style.backgroundColor = 'lightblue';
+          button.style.backgroundColor = '#E488EC';
+        }, 3000);
+      }
+
+      const getHtmlfragment = () => {
+        console.log('getHtmlfragment');
+        const div = document.createElement('div');
+        const p = document.createElement('p');
+        p.textContent = 'html fragment';
+        div.appendChild(p);
+        return div;
+      }
+
+      const createGrid = () => {
+        const grid = document.createElement('div');
+
+        const colours = getColours();
+        
+        for (let i = 0; i < 31; i++) { // 31 rows
+          
+          const gridRow = document.createElement('div');
+          gridRow.classList.add('grid-row');
+          grid.appendChild(gridRow);
+          for (let j = 0; j < 32; j++) { // 32 columns
+            const gridCell = document.createElement('div');
+            gridCell.style.backgroundColor = colours[i][j];
+            gridCell.classList.add('grid-cell');
+            // display rgb value on hover
+            gridCell.title = colours[i][j];
+            gridRow.appendChild(gridCell);
+          }
+        }
+        return grid;
+      }
+
+      const getColours = () => {
+        const colours = [];
+        for (let i = 0; i < 31; i++) {
+          const colour = [];
+          for (let j = 0; j < 32; j++) {  
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            let rgb = `rgb(${r}, ${g}, ${b})`;
+            colour.push(rgb);
+          }
+          colours.push(colour);
+        }
+        return colours;
+      }
+
+      const onPageLoad = () => {
+        console.log('onPageLoad');
+        changeHeader();
+        const content = document.querySelector('.content');
+        content.appendChild(createGrid());
+      }
+
+      const onRerollClick = () => {
+        // replace content with new grid
+        const content = document.querySelector('.content');
+        content.innerHTML = '';
+        content.appendChild(createGrid());
+      }
+
+    </script>
+  </head>
+
+  <body onload="onPageLoad()">
+    <div class="container">
+      <div class="header">
+        <div>
+          <p>Colours</p>
+        </div>
+        <div class="align-right">
+          <button onClick="onRerollClick()" class="reroll-button">Press Me</button>
+        </div>
+      </div>
+      <div class="content">
+        <!-- grid goes here -->
+      </div>
     </div>
-    <div class="content">
-      <p>content</p>
-    </div>
-    <div class="footer">
-      <p>footer</p>
-    </div>
-  </div>
+
+  </body>
+
 </html>
